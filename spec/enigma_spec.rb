@@ -28,7 +28,11 @@ describe Enigma::Enigma do
       ["J", "W"], ["K", "Q"], ["L", "P"], ["M", "O"]
   end
 
-  let(:enigma) { Enigma::Enigma.new rotors: [rotor1, rotor2, rotor3], reflector: reflector }
+  let(:rotor_deck) { RotorDeck.new rotors: [rotor1, rotor2, rotor3], reflector: reflector }
+
+  let(:enigma) { Enigma::Enigma.new rotor_deck: rotor_deck }
+
+  before { engima.rotate_rotors_to 'AAA' }
 
   describe '#type_in' do
     context 'when I input decrypted message' do
