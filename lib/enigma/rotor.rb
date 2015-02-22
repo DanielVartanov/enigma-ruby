@@ -1,7 +1,8 @@
 module Enigma
-  class Rotor < Struct.new :encryption_map
-    def initialize
+  class Rotor
+    def initialize(encryption_map)
       self.displacement = 0
+      self.encryption_map = encryption_map
     end
 
     def rotate
@@ -12,8 +13,13 @@ module Enigma
       ('A'.ord + displacement).chr
     end
 
+    def rotate_to(position)
+      self.displacement = position.ord - 'A'.ord
+    end
+
     protected
 
     attr_accessor :displacement
+    attr_accessor :encryption_map
   end
 end

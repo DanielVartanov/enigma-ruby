@@ -1,9 +1,9 @@
 module Enigma
   class RotorDeck
-    attr_reader :rotors, :reflector
-
     def initialize(rotors:, reflector:)
-      self.rotors = rotors
+      self.left_rotor = rotors[0]
+      self.middle_rotor = rotors[1]
+      self.right_rotor = rotors[2]
       self.reflector = reflector
     end
 
@@ -19,20 +19,16 @@ module Enigma
 
     end
 
+    def position
+      rotors.map(&:position).join
+    end
+
+    def rotors
+      [left_rotor, middle_rotor, right_rotor]
+    end
+
     protected
 
-    attr_writer :rotors, :reflector
-
-    def left_rotor
-      rotors[0]
-    end
-
-    def middle_rotor
-      rotors[1]
-    end
-
-    def right_rotor
-      rotors[2]
-    end
+    attr_accessor :reflector, :left_rotor, :middle_rotor, :right_rotor
   end
 end
