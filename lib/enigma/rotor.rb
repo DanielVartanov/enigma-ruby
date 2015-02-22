@@ -10,11 +10,17 @@ module Enigma
     end
 
     def position
-      ('A'.ord + displacement).chr
+      'A'.shift_letter_by(displacement)
     end
 
     def rotate_to(position)
       self.displacement = position.ord - 'A'.ord
+    end
+
+    def transform_forward(letter)
+      letter = letter.shift_letter_by(displacement)
+      letter = encryption_map[letter]
+      letter = letter.shift_letter_by(-displacement)
     end
 
     protected
