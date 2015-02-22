@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Enigma::RotorDeck do
-  let(:left_rotor) { Rotor.new }
-  let(:middle_rotor) { Rotor.new }
-  let(:right_rotor) { Rotor.new }
+  let(:left_rotor) { Rotor.new nil }
+  let(:middle_rotor) { Rotor.new nil }
+  let(:right_rotor) { Rotor.new nil }
 
   let(:rotor_deck) { RotorDeck.new rotors: [left_rotor, middle_rotor, right_rotor], reflector: nil }
 

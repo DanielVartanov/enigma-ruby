@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Enigma::Rotor do
-  let(:rotor) { Rotor.new }
+  let(:rotor) { Rotor.new nil }
 
   describe '#rotate' do
     subject { rotor.position }
