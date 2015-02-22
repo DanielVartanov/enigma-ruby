@@ -1,19 +1,24 @@
 module Enigma
   class Enigma
-    attr_reader :rotor_deck
-
-    def initialize(rotor_deck:)
-      self.rotor_deck = rotor_deck
+    def initialize(rotors:, reflector:)
+      self.rotor_deck = RotorDeck.new rotors: rotors, reflector: reflector
     end
 
     def type_in(message)
+      message.extend Extensions::String::Map
 
+      message.map do |letter|
+        rotor_deck.rotate
+        rotor_deck.transform(letter)
+      end
     end
 
-    delegate :rotate_rotors_to, to: :rotor_deck
+    def rotate_rotors_to(position)
+      rotor_deck.rotate_to position
+    end
 
     protected
 
-    attr_writer :rotor_deck
+    attr_accessor :rotor_deck
   end
 end
