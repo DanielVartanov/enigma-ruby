@@ -23,6 +23,12 @@ module Enigma
       letter = letter.shift_letter_by(-displacement)
     end
 
+    def transform_backward(letter)
+      letter = letter.shift_letter_by(displacement)
+      letter = encryption_map.invert[letter]
+      letter = letter.shift_letter_by(-displacement)
+    end
+
     protected
 
     attr_accessor :displacement
