@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Enigma::Enigma do
+describe Enigma::RotorDeck do
   let(:left_rotor) do
     Rotor.new "A" => "V", "B" => "E", "C" => "D", "D" => "Z", "E" => "U", "F" => "Y", "G" => "L",
       "H" => "P", "I" => "Q", "J" => "S", "K" => "O", "L" => "K", "M" => "F", "N" => "H",
@@ -28,20 +28,36 @@ describe Enigma::Enigma do
       ["J", "W"], ["K", "Q"], ["L", "P"], ["M", "O"]
   end
 
-  let(:enigma) { Enigma::Enigma.new rotors: [left_rotor, middle_rotor, right_rotor], reflector: reflector }
+  let(:rotor_deck) { RotorDeck.new rotors: [left_rotor, middle_rotor, right_rotor], reflector: reflector }
 
-  before { enigma.rotate_rotors_to 'AAA' }
+  describe '#transform' do
+    context 'when position is AAA' do
+      before { rotor_deck.rotate_to 'AAA' }
 
-  describe '#type_in' do
-    context 'when I input decrypted message' do
-      it 'encrypts the message' do
-        expect(enigma.type_in('PZD')).to eq('BEC')
+      it 'transforms a letter according to rotor and reflector configuration' do
+        expect(rotor_deck.transform('X')).to eq('Z')
       end
-    end
 
-    context 'when I input encrypted message' do
-      it 'decrypts the message' do
-        expect(enigma.type_in('BEC')).to eq('PZD')
+      context 'when position is AAB' do
+        before { rotor_deck.rotate_to 'AAB' }
+
+        pending 'takes right rotor position into account' do
+          expect(rotor_deck.transform('P')).to eq('B')
+        end
+
+        context 'when position is AAD' do
+          before { rotor_deck.rotate_to 'AAD' }
+
+          pending 'takes right rotor position into account' do
+            expect(rotor_deck.transform('D')).to eq('C')
+          end
+
+          context 'when position is BCD' do
+            before { rotor_deck.rotate_to 'BCD' }
+
+            it 'takes all rotor positions into account'
+          end
+        end
       end
     end
   end

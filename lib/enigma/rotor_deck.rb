@@ -12,7 +12,15 @@ module Enigma
     end
 
     def transform(letter)
+      letter = right_rotor.transform_forward(letter)
+      letter = middle_rotor.transform_forward(letter)
+      letter = left_rotor.transform_forward(letter)
 
+      letter = reflector.transform(letter)
+
+      letter = left_rotor.transform_backward(letter)
+      letter = middle_rotor.transform_backward(letter)
+      letter = right_rotor.transform_backward(letter)
     end
 
     def rotate_to(position)
