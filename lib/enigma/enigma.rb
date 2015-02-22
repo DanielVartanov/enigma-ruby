@@ -5,8 +5,6 @@ module Enigma
     end
 
     def type_in(message)
-      message.extend Extensions::String::Map
-
       message.map do |letter|
         rotor_deck.rotate
         rotor_deck.transform(letter)
