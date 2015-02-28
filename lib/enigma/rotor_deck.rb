@@ -7,10 +7,6 @@ module Enigma
       self.reflector = reflector
     end
 
-    def rotate
-      right_rotor.rotate
-    end
-
     def transform(letter)
       letter = right_rotor.transform_forward(letter)
       letter = middle_rotor.transform_forward(letter)
@@ -21,6 +17,17 @@ module Enigma
       letter = left_rotor.transform_backward(letter)
       letter = middle_rotor.transform_backward(letter)
       letter = right_rotor.transform_backward(letter)
+    end
+
+    def rotate
+      right_rotor.rotate
+      if right_rotor.position == 'A'
+        middle_rotor.rotate
+
+        if middle_rotor.position == 'A'
+          left_rotor.rotate
+        end
+      end
     end
 
     def rotate_to(position)
