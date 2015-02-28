@@ -35,35 +35,51 @@ describe Enigma::Enigma do
   describe '#type_in' do
     subject { enigma.type_in(message) }
 
-    context 'when I input decrypted message' do
-      let(:message) { 'PZD' }
+    context 'when message is short' do
+      context 'when I input decrypted message' do
+        let(:message) { 'PZD' }
 
-      it 'encrypts the message' do
-        is_expected.to eq 'BEC'
+        it 'encrypts the message' do
+          is_expected.to eq 'BEC'
+        end
+      end
+
+      context 'when I input encrypted message' do
+        let(:message) { 'BEC' }
+
+        it 'decrypts the message' do
+          is_expected.to eq 'PZD'
+        end
       end
     end
 
-    context 'when I input encrypted message' do
-      let(:message) { 'BEC' }
+    context 'when message is long (more than 26 letters)' do
+      context 'when I input decrypted message' do
+        let(:message) { 'ABCDEFGHIJKLMNOPQRSTUVWXYZABC' }
 
-      it 'decrypts the message' do
-        is_expected.to eq 'PZD'
+        it 'encrypts the message' do
+          is_expected.to eq 'CRDJLGDMARVHPJGWREDOHJCYVEIOM'
+        end
+      end
+
+      context 'when I input encrypted message' do
+        let(:message) { 'CRDJLGDMARVHPJGWREDOHJCYVEIOM' }
+
+        it 'decrypts the message' do
+          is_expected.to eq 'ABCDEFGHIJKLMNOPQRSTUVWXYZABC'
+        end
       end
     end
 
-    context 'when I input long decrypted message (more than 26 letters)' do
-      let(:message) { 'ABCDEFGHIJKLMNOPQRSTUVWXYZABC' }
+    context 'when message is very long (more than 26^2 letters)' do
+      let(:alphabet) { ('A'..'Z').to_a.join }
 
-      it 'encrypts the message' do
-        is_expected.to eq 'CRDJLGDMARVHPJGWREDOHJCYVEIOM'
-      end
-    end
+      context 'when I input decrypted message' do
+        let(:message) { alphabet * 26 + 'ABC' }
 
-    context 'when I input long encrypted message (more than 26 letters)' do
-      let(:message) { 'CRDJLGDMARVHPJGWREDOHJCYVEIOM' }
-
-      it 'encrypts the message' do
-        is_expected.to eq 'ABCDEFGHIJKLMNOPQRSTUVWXYZABC'
+        it 'encrypts the message' do
+          expect(subject[-3..-1]).to eq('HGI')
+        end
       end
     end
   end
