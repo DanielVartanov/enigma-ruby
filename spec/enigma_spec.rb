@@ -33,15 +33,37 @@ describe Enigma::Enigma do
   before { enigma.rotate_rotors_to 'AAA' }
 
   describe '#type_in' do
+    subject { enigma.type_in(message) }
+
     context 'when I input decrypted message' do
+      let(:message) { 'PZD' }
+
       it 'encrypts the message' do
-        expect(enigma.type_in('PZD')).to eq('BEC')
+        is_expected.to eq 'BEC'
       end
     end
 
     context 'when I input encrypted message' do
+      let(:message) { 'BEC' }
+
       it 'decrypts the message' do
-        expect(enigma.type_in('BEC')).to eq('PZD')
+        is_expected.to eq 'PZD'
+      end
+    end
+
+    context 'when I input long decrypted message (more than 26 letters)' do
+      let(:message) { 'ABCDEFGHIJKLMNOPQRSTUVWXYZABC' }
+
+      it 'encrypts the message' do
+        is_expected.to eq 'CRDJLGDMARVHPJGWREDOHJCYVEIOM'
+      end
+    end
+
+    context 'when I input long encrypted message (more than 26 letters)' do
+      let(:message) { 'CRDJLGDMARVHPJGWREDOHJCYVEIOM' }
+
+      it 'encrypts the message' do
+        is_expected.to eq 'ABCDEFGHIJKLMNOPQRSTUVWXYZABC'
       end
     end
   end
