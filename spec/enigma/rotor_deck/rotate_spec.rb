@@ -16,7 +16,7 @@ describe Enigma::RotorDeck do
       end
     end
 
-    context 'when position is AAX' do
+    context 'when position is AAY' do
       before { rotor_deck.rotate_to 'AAY' }
 
       it 'rotates the rightmost rotor only' do
