@@ -37,27 +37,45 @@ describe Enigma::RotorDeck do
       it 'transforms a letter according to rotor and reflector configuration' do
         expect(rotor_deck.transform('X')).to eq('Z')
       end
+    end
 
-      context 'when position is AAB' do
-        before { rotor_deck.rotate_to 'AAB' }
+    context 'when position is AAB' do
+      before { rotor_deck.rotate_to 'AAB' }
 
-        pending 'takes right rotor position into account' do
-          expect(rotor_deck.transform('P')).to eq('B')
-        end
+      it 'takes right rotor position into account' do
+        expect(rotor_deck.transform('P')).to eq('B')
+      end
+    end
 
-        context 'when position is AAD' do
-          before { rotor_deck.rotate_to 'AAD' }
+    context 'when position is AAD' do
+      before { rotor_deck.rotate_to 'AAD' }
 
-          pending 'takes right rotor position into account' do
-            expect(rotor_deck.transform('D')).to eq('C')
-          end
+      it 'takes right rotor position into account' do
+        expect(rotor_deck.transform('D')).to eq('C')
+      end
+    end
 
-          context 'when position is BCD' do
-            before { rotor_deck.rotate_to 'BCD' }
+    context 'when position is ABA' do
+      before { rotor_deck.rotate_to 'ABA' }
 
-            it 'takes all rotor positions into account'
-          end
-        end
+      it 'takes right and middle rotor positions into account' do
+        expect(rotor_deck.transform('A')).to eq('F')
+      end
+    end
+
+    context 'when position is ABB' do
+      before { rotor_deck.rotate_to 'ABB' }
+
+      it 'takes right and middle rotor positions into account' do
+        expect(rotor_deck.transform('B')).to eq('R')
+      end
+    end
+
+    context 'when position is ABC' do
+      before { rotor_deck.rotate_to 'ABC' }
+
+      it 'takes right and middle rotor positions into account' do
+        expect(rotor_deck.transform('C')).to eq('R')
       end
     end
   end
