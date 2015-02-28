@@ -24,7 +24,9 @@ module Enigma
     end
 
     def rotate_to(position)
-
+      left_rotor.rotate_to position[0]
+      middle_rotor.rotate_to position[1]
+      right_rotor.rotate_to position[2]
     end
 
     def position
